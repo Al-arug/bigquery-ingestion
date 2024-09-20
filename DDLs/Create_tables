@@ -1,0 +1,198 @@
+CREATE OR REPLACE TABLE `data-evolution-ali.raw_wwi.countries`
+(
+  CountryID STRING,
+  CountryName STRING,
+  FormalName STRING,
+  IsoAlpha3Code STRING,
+  IsoNumericCode STRING,
+  CountryType STRING,
+  LatestRecordedPopulation STRING,
+  Continent STRING,
+  Region STRING,
+  Subregion STRING,
+  LastEditedBy STRING
+
+)
+;
+
+CREATE OR REPLACE EXTERNAL TABLE `data-evolution-ali.raw_wwi.customer_categories`
+(
+  CustomerCategoryID STRING,
+  CustomerCategoryName STRING,
+  LastEditedBy STRING,
+  ValidFrom STRING,
+  ValidTo STRING
+)
+
+OPTIONS (
+  format = 'CSV',
+  skip_leading_rows = 1,
+  uris = ['gs://raw-wwi-aliaruqi/data-evolution-wwi/csv/sales.customercategories/year=2013/month=99/sales.customercategories_201399.csv']
+)
+
+;
+
+CREATE OR REPLACE EXTERNAL TABLE `data-evolution-ali.raw_wwi.customers`
+(
+  CustomerID STRING,
+  CustomerName STRING,
+  BillToCustomerID STRING,
+  CustomerCategoryID STRING,
+  BuyingGroupID STRING,
+  PrimaryContactPersonID STRING,
+  AlternateContactPersonID STRING,
+  DeliveryMethodID STRING,
+  DeliveryCityID STRING,
+  PostalCityID STRING,
+  CreditLimit STRING,
+  AccountOpenedDate STRING,
+  StandardDiscountPercentage STRING,
+  IsStatementSent STRING,
+  IsOnCreditHold STRING,
+  PaymentDays STRING,
+  PhoneNumber STRING,
+  FaxNumber STRING,
+  DeliveryRun STRING,
+  RunPosition STRING,
+  WebsiteURL STRING,
+  DeliveryAddressLine1 STRING,
+  DeliveryAddressLine2 STRING,
+  DeliveryPostalCode STRING,
+  DeliveryLocation STRING,
+  PostalAddressLine1 STRING,
+  PostalAddressLine2 STRING,
+  PostalPostalCode STRING,
+  LastEditedBy STRING,
+  ValidFrom STRING,
+  ValidTo STRING
+) 
+
+
+OPTIONS (
+  format = 'CSV',
+  skip_leading_rows = 1,
+  uris = ['gs://raw-wwi-aliaruqi/data-evolution-wwi/csv/sales.customers/year=2013/month=99/sales.customers_201399.csv']
+)
+
+; 
+
+CREATE OR REPLACE EXTERNAL TABLE `data-evolution-ali.raw_wwi.invoice_lines`
+(
+  InvoiceLineID STRING,
+  InvoiceID STRING,
+  StockItemID STRING,
+  Description STRING,
+  PackageTypeID STRING,
+  Quantity STRING,
+  UnitPrice STRING,
+  TaxRate STRING,
+  TaxAmount STRING,
+  LineProfit STRING,
+  ExtendedPrice STRING,
+  LastEditedBy STRING,
+  LastEditedWhen STRING
+)
+
+OPTIONS (
+  format = 'CSV',
+  skip_leading_rows = 1,
+  uris = [ 'gs://raw-wwi-aliaruqi/data-evolution-wwi/csv/sales.invoicelines/year=2013/month=99/sales.invoicelines_201399.csv', 
+           'gs://raw-wwi-aliaruqi/data-evolution-wwi/csv/sales.invoicelines/year=2016/month=01/sales.invoicelines_201601.csv',
+           'gs://raw-wwi-aliaruqi/data-evolution-wwi/csv/sales.invoicelines/year=2016/month=02/sales.invoicelines_201602.csv',
+           'gs://raw-wwi-aliaruqi/data-evolution-wwi/csv/sales.invoicelines/year=2016/month=03/sales.invoicelines_201603.csv', 
+           'gs://raw-wwi-aliaruqi/data-evolution-wwi/csv/sales.invoicelines/year=2016/month=04/sales.invoicelines_201604.csv',
+           'gs://raw-wwi-aliaruqi/data-evolution-wwi/csv/sales.invoicelines/year=2016/month=05/sales.invoicelines_201605.csv'  ]
+)
+
+;
+
+CREATE OR REPLACE EXTERNAL TABLE `data-evolution-ali.raw_wwi.invoice`
+(
+  InvoiceID STRING,
+  CustomerID STRING,
+  BillToCustomerID STRING,
+  OrderID STRING,
+  DeliveryMethodID STRING,
+  ContactPersonID STRING,
+  AccountsPersonID STRING,
+  SalespersonPersonID STRING,
+  PackedByPersonID STRING,
+  InvoiceDate STRING,
+  CustomerPurchaseOrderNumber STRING,
+  IsCreditNote STRING,
+  CreditNoteReason STRING,
+  Comments STRING,
+  DeliveryInstructions STRING,
+  InternalComments STRING,
+  TotalDryItems STRING,
+  TotalChillerItems STRING,
+  DeliveryRun STRING,
+  RunPosition STRING,
+  ReturnedDeliveryData STRING,
+  ConfirmedDeliveryTime STRING,
+  ConfirmedReceivedBy STRING,
+  LastEditedBy STRING,
+  LastEditedWhen STRING
+)
+OPTIONS (
+  format = 'CSV',
+    skip_leading_rows = 1,
+    uris = ['gs://raw-wwi-aliaruqi/data-evolution-wwi/csv/sales.invoices/year=2013/month=99/sales.invoices_201399.csv',
+          'gs://raw-wwi-aliaruqi/data-evolution-wwi/csv/sales.invoices/year=2016/month=01/sales.invoices_201601.csv',
+          'gs://raw-wwi-aliaruqi/data-evolution-wwi/csv/sales.invoices/year=2016/month=02/sales.invoices_201602.csv',
+          'gs://raw-wwi-aliaruqi/data-evolution-wwi/csv/sales.invoices/year=2016/month=03/sales.invoices_201603.csv',
+          'gs://raw-wwi-aliaruqi/data-evolution-wwi/csv/sales.invoices/year=2016/month=04/sales.invoices_201604.csv',
+          'gs://raw-wwi-aliaruqi/data-evolution-wwi/csv/sales.invoices/year=2016/month=05/sales.invoices_201605.csv']
+          
+           )
+
+
+;
+
+
+CREATE OR REPLACE TABLE `data-evolution-ali.raw_wwi.stockgroup`
+(
+  StockGroupID STRING,
+  StockGroupName STRING,
+  LastEditedBy STRING
+)
+;
+CREATE OR REPLACE TABLE `data-evolution-ali.raw_wwi.stockitems`
+(
+  StockItemID STRING,
+  StockItemName STRING,
+  SupplierID STRING,
+  ColorID STRING,
+  UnitPackageID STRING,
+  OuterPackageID STRING,
+  Brand STRING,
+  Size STRING,
+  LeadTimeDays STRING,
+  QuantityPerOuter STRING,
+  IsChillerStock STRING,
+  Barcode STRING, 
+  TaxRate STRING,
+  UnitPrice STRING,
+  RecommendedRetailPrice STRING,
+  TypicalWeightPerUnit STRING,
+  MarketingComments STRING,
+  InternalComments STRING,
+  Photo STRING,
+  CustomFields STRING,
+  Tags STRING,
+  SearchDetails STRING,
+  LastEditedBy STRING,
+  ValidFrom STRING,
+  ValidTo STRING
+) ; 
+
+CREATE OR REPLACE TABLE `data-evolution-ali.raw_wwi.stockitemstockgroup`
+(
+  StockItemStockGroupID STRING,
+  StockItemID STRING,
+  StockGroupID STRING,
+  LastEditedBy STRING,
+  LastEditedWhen STRING
+)
+
+;
